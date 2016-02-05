@@ -8,7 +8,7 @@ describe('ng-ckeditor', function () {
     beforeEach(function (done) {
         inject(function ($rootScope, $compile, $document) {
             element = angular.element(
-                '<span>{{test}}<textarea ckeditor id="' + 'editor' + i + '" ng-model="test"></textarea></span>');
+                '<span>{{test}}<textarea ckeditor id="' + 'editor' + i + '" ng-model="test" replace-content-links="true"></textarea></span>');
 
             scope = $rootScope.$new(true);
             scope.test = 'test';
@@ -45,6 +45,21 @@ describe('ng-ckeditor', function () {
                 instance.on('instanceReady', function () {
                     expect(instance.getData()).toBe('new value');
                     expect(scope.test).toBe('new value');
+                    done();
+                });
+            }, 10);
+        });
+    });
+
+    it('should replace content link directives from model', function (done) {
+        inject(function ($rootScope) {
+            scope.test = '<@clink anchorId="1"></@clink>';
+            $rootScope.$apply();
+
+            setTimeout(function () {
+                instance.on('instanceReady', function () {
+                    expect(instance.getData()).toBe('<div cid="1"></div>');
+                    expect(scope.test).toBe('<@clink anchorId="1"></@clink>');
                     done();
                 });
             }, 10);

@@ -87,11 +87,15 @@
                             CKEDITOR.instances[instance.name].destroy();
                         }
                     });
+                    ngModel.$parsers.push(convertContentLinksToModel);
+                    ngModel.$formatters.push(convertContentLinksFromModel);
                     var setModelData = function (setPristine) {
                         var data = instance.getData();
+                        /*
                         if (data === '') {
                             data = null;
                         }
+                        */
                         $timeout(function () { // for key up event
                             if (setPristine !== true || data !== ngModel.$viewValue) {
                                 ngModel.$setViewValue(data);
@@ -117,7 +121,7 @@
                     instance.on('pasteState',   setModelData);
                     instance.on('change', setModelData);
                     instance.on('blur', setModelData);
-                    //instance.on('key',          setModelData); // for source view
+                    instance.on('key', setModelData); // for source view
 
                     instance.on('instanceReady', function () {
                         scope.$broadcast('ckeditor.ready');
@@ -150,6 +154,22 @@
             }
         };
     }]);
+
+    function convertContentLinksFromModel(model) {
+        if (angular.isString(model)) {
+            return model.replace(/<@clink anchorId="(\d+)"><\/@clink>/g, '<div cid="$1"></div>');
+        } else {
+            return model;
+        }
+    }
+
+    function convertContentLinksToModel(data) {
+        if (angular.isString(data)) {
+            return data.replace(/<div cid="(\d+)"><\/div>/g, '<@clink anchorId="$1"></@clink>');
+        } else {
+            return data;
+        }
+    }
 
     return app;
 }));

@@ -1,6 +1,6 @@
 CKEditor + AngularJS
 ====================
-[![Build Status](https://travis-ci.org/esvit/ng-ckeditor.png)](https://travis-ci.org/esvit/ng-ckeditor) [![Coverage Status](https://coveralls.io/repos/esvit/ng-ckeditor/badge.png)](https://coveralls.io/r/esvit/ng-ckeditor)
+[![Build Status](https://travis-ci.org/grundera/ng-ckeditor.png)](https://travis-ci.org/grundera/ng-ckeditor) [![Coverage Status](https://coveralls.io/repos/grundera/ng-ckeditor/badge.png)](https://coveralls.io/r/grundera/ng-ckeditor)
 
 
 Code licensed under New BSD License.
