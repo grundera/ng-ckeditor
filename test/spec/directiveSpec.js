@@ -53,13 +53,13 @@ describe('ng-ckeditor', function () {
 
     it('should replace content link directives from model', function (done) {
         inject(function ($rootScope) {
-            scope.test = '<@clink anchorId="1"></@clink>';
+            scope.test = '<clink anchorId="1"></clink>';
             $rootScope.$apply();
 
             setTimeout(function () {
                 instance.on('instanceReady', function () {
                     expect(instance.getData()).toBe('<div cid="1"></div>');
-                    expect(scope.test).toBe('<@clink anchorId="1"></@clink>');
+                    expect(scope.test).toBe('<clink anchorId="1"></clink>');
                     done();
                 });
             }, 10);

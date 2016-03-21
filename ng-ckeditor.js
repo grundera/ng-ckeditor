@@ -157,7 +157,7 @@
 
     function convertContentLinksFromModel(model) {
         if (angular.isString(model)) {
-            return model.replace(/<@clink anchorId="(\d+)"><\/@clink>/g, '<div cid="$1"></div>');
+            return model.replace(/<clink anchorId="(\d+)"><\/clink>/g, '<div cid="$1"></div>');
         } else {
             return model;
         }
@@ -165,7 +165,7 @@
 
     function convertContentLinksToModel(data) {
         if (angular.isString(data)) {
-            return data.replace(/<div cid="(\d+)"><\/div>/g, '<@clink anchorId="$1"></@clink>');
+            return data.replace(/<div cid="(\d+)"><\/div>/g, '<clink anchorId="$1"></clink>');
         } else {
             return data;
         }
